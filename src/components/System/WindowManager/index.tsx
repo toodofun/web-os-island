@@ -7,7 +7,6 @@ import Window, {type WindowProps} from "@/components/System/Window";
 import {DndContext, type DragEndEvent} from "@dnd-kit/core";
 import {restrictToWindowEdges} from "@dnd-kit/modifiers";
 import Application from "@/components/System/Application";
-import Loading from "@/components/Common/Loading";
 
 export interface WindowManagerProps {
     children?: React.ReactNode
@@ -39,7 +38,8 @@ export const WindowManager: React.FC<WindowManagerProps> = (
             {
                 title: "测试应用",
                 icon: "https://hexgl.bkcore.com/play/css/title.png",
-                children: <Application type={'builtin'} children={<Loading/>}/>,
+                // children: <Application type={'builtin'} children={<TestApp/>}/>,
+                children: <Application type={'third'} href="/app/test"/>
             },
             {
                 id: 'genshin',

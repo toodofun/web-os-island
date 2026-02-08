@@ -2,6 +2,8 @@ import {createBrowserRouter, type RouteObject} from "react-router-dom";
 import type {RouteHandle} from "../../types/router.ts";
 import BaseLayout from "@/components/Layout/BaseLayout";
 import OperatingSystem from "@/components/System/OperatingSystem";
+import {LazyLoad} from "@/components/Common/LazyLoad";
+import {lazy} from "react";
 
 type AppRouteObject = RouteObject & {
     handle?: RouteHandle
@@ -10,8 +12,14 @@ type AppRouteObject = RouteObject & {
 
 export const routerConfig: AppRouteObject[] = [
     {
-        path: '/test',
+        path: '/app',
         element: <BaseLayout/>,
+        children: [
+            {
+                path: 'test',
+                element: <LazyLoad component={lazy(() => import('@/apps/TestApp'))}/>
+            }
+        ]
     },
     {
         path: '/',

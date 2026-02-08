@@ -277,7 +277,7 @@ const Window: React.FC<WindowProps> = (
                     e.stopPropagation()
                     onFocus?.()
                 }}
-                className="shrink-0 flex items-center justify-between px-2 py-1 bg-gray-100 cursor-move select-none"
+                className="shrink-0 flex items-center justify-between px-2 py-1 bg-slate-100 cursor-move select-none"
                 onDoubleClick={isMaximized ? handleRestore : onMaximize}
             >
                 <div className="flex items-center gap-2">

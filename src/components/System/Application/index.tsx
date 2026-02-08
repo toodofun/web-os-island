@@ -14,7 +14,7 @@ const Application: React.FC<ApplicationProps> = (
     }
 ) => {
     return (
-        <>
+        <div className="bg-slate-100/20 w-full h-full">
             {type === 'builtin' && children}
             {type === 'third' && (
                 <iframe
@@ -25,7 +25,7 @@ const Application: React.FC<ApplicationProps> = (
                     src={href}
                 ></iframe>
             )}
-        </>
+        </div>
     )
 }
 

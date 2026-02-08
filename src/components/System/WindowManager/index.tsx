@@ -6,6 +6,8 @@ import type {
 import Window, {type WindowProps} from "@/components/System/Window";
 import {DndContext, type DragEndEvent} from "@dnd-kit/core";
 import {restrictToWindowEdges} from "@dnd-kit/modifiers";
+import Application from "@/components/System/Application";
+import Loading from "@/components/Common/Loading";
 
 export interface WindowManagerProps {
     children?: React.ReactNode
@@ -33,6 +35,21 @@ export const WindowManager: React.FC<WindowManagerProps> = (
     const [state, setState] = useState<WindowManagerState>({
         windows: new Map(),
         activeWindowId: defaultActiveWindow || null,
+        dockedWindows: [
+            {
+                title: "测试应用",
+                icon: "https://hexgl.bkcore.com/play/css/title.png",
+                children: <Application type={'builtin'} children={<Loading/>}/>,
+            },
+            {
+                id: 'genshin',
+                title: "原神",
+                singleton: true,
+                icon: "https://i04piccdn.sogoucdn.com/a72804451f0e9825",
+                // size: {width: 1440, height: 900},
+                children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
+            }
+        ],
         highestZIndex: 1000,
     })
 
@@ -54,6 +71,15 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         setState((prev) => {
             const windows = new Map(prev.windows)
             const newZIndex = prev.highestZIndex + 1
+
+            const remainingWindows = Array.from(windows.values())
+            const filteredWindow = remainingWindows.filter(i => i.id === id)
+            const activeWindowId = filteredWindow.length > 0 ? filteredWindow[0].id : null
+
+            if (activeWindowId) {
+                bringToFront(activeWindowId)
+                return prev
+            }
 
             // 更新其他窗口状态
             for (const [windowId, window] of windows.entries()) {
@@ -165,6 +191,10 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         return minimizedWindows
     }
 
+    const getDockedWindows = () => {
+        return state.dockedWindows
+    }
+
     const bringToFront = (id: string) => {
         setState((prev) => {
             const windows = new Map(prev.windows)
@@ -209,6 +239,7 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         updateWindow,
         bringToFront,
         getMinimizedWindows,
+        getDockedWindows,
         subscribe,
     }
 

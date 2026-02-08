@@ -2,26 +2,53 @@ import React, {useEffect, useState} from "react";
 import {useWindowManager} from "@/components/System/WindowManager";
 import type {WindowProps} from "@/components/System/Window";
 import {Tooltip} from "@heroui/react";
+import type {CreateWindowProps} from "@/components/System/WindowManager/windowManager.type.ts";
+import {v4 as uuidv4} from "uuid";
 
 const Dock: React.FC = () => {
     const windowManager = useWindowManager()
     const [minimizedWindows, setMinimizedWindows] = useState<WindowProps[]>([])
+    const [dockedWindows, setDockedWindows] = useState<CreateWindowProps[]>([])
 
     useEffect(() => {
-        const updateMinimizedWindows = () => {
-            const windows = windowManager.getMinimizedWindows()
-            setMinimizedWindows(windows)
+        const updateWindows = () => {
+            const minimizedWindows = windowManager.getMinimizedWindows()
+            const dockedWindows = windowManager.getDockedWindows()
+            setMinimizedWindows(minimizedWindows)
+            setDockedWindows(dockedWindows)
         }
 
-        updateMinimizedWindows()
+        updateWindows()
 
-        const unsubscribe = windowManager.subscribe(updateMinimizedWindows)
+        const unsubscribe = windowManager.subscribe(updateWindows)
 
         return () => unsubscribe()
     }, [windowManager])
 
     return (
         <div className="flex items-center justify-between h-full px-4 bg-white/20 backdrop-blur-xs">
+            <div className="flex items-end gap-2">
+                {dockedWindows.map((window) => (
+                    <Tooltip key={window.id} content={window.title} showArrow={true}>
+                        <div
+                            className="bg-white/30 rounded"
+                            key={window.id}
+                            data-window-target={window.id}
+                            onClick={() => {
+                                const id = window.singleton ? window.id! : uuidv4()
+                                windowManager.registerWindow(id, window)
+                            }}
+                        >
+                            <div
+                                className="cursor-pointer hover:bg-white/50 bg-white/30 h-7 p-0 rounded overflow-hidden"
+                                style={{aspectRatio: 1}}>
+                                <img src={window.icon} alt={window.title}
+                                     className="w-full h-full rounded-md object-contain"/>
+                            </div>
+                        </div>
+                    </Tooltip>
+                ))}
+            </div>
             <div className="flex items-end gap-2">
                 {minimizedWindows.map((window) => (
                     <Tooltip key={window.id} content={window.title} showArrow={true}>

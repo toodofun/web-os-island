@@ -534,7 +534,7 @@
     "@react-types/datepicker" "3.13.3"
     "@react-types/shared" "3.32.1"
 
-"@heroui/divider@2.2.22":
+"@heroui/divider@2.2.22", "@heroui/divider@^2.2.22":
   version "2.2.22"
   resolved "https://registry.npmmirror.com/@heroui/divider/-/divider-2.2.22.tgz#e00844a9a19f5c8a688d77b761aab4ae00f783c9"
   integrity sha512-ozvE5dLlUvqO0kXbZzdSMjJ53O06eKTJw6v3RHCMVIgHfUO3AYFfLTSjscK2G0Zb/Mg0oBiqGs8zTtqGNt4xww==

@@ -290,14 +290,14 @@ const Window: React.FC<WindowProps> = (
                 <div className="flex items-center gap-2">
                     <div className="flex gap-2" onPointerDown={(e) => e.stopPropagation()}>
                         <button onClick={onClose} onPointerDown={(e) => e.stopPropagation()}
-                                className="p-0.5 w-4 h-4 transition rounded-full bg-red-500/80">
+                                className="p-0.5 w-3.75 h-3.75 transition rounded-full bg-red-500/80">
                             <XMarkIcon
                                 className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                 strokeWidth={3}
                             />
                         </button>
                         <button onClick={handleMinimize} onPointerDown={(e) => e.stopPropagation()}
-                                className="p-0.5 w-4 h-4 transition rounded-full bg-yellow-300/80">
+                                className="p-0.5 w-3.75 h-3.75 transition rounded-full bg-yellow-300/80">
                             <MinusIcon
                                 className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                 strokeWidth={3}
@@ -305,7 +305,7 @@ const Window: React.FC<WindowProps> = (
                         </button>
                         {isMaximized ? (
                             <button onClick={handleRestore} onPointerDown={(e) => e.stopPropagation()}
-                                    className="p-0.5 w-4 h-4 transition rounded-full bg-green-300/80">
+                                    className="p-0.5 w-3.75 h-3.75 transition rounded-full bg-green-300/80">
                                 <ArrowsPointingInIcon
                                     className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                     strokeWidth={3}

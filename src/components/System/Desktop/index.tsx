@@ -23,7 +23,8 @@ const Desktop: React.FC = () => {
 
     return (
         <>
-            <Wallpaper src="https://img-baofun.zhhainiao.com/market/5/381773.mp4" type="video"/>
+            {/*<Wallpaper src="https://img-baofun.zhhainiao.com/market/5/381773.mp4" type="video"/>*/}
+            <Wallpaper src="http://127.0.0.1:61296/assets/bg-default-1-mini-B084lKmK.jpg" type="img"/>
         </>
     )
 }

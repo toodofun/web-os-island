@@ -3,7 +3,7 @@ import {useWindowManager} from "@/components/System/WindowManager";
 import type {WindowProps} from "@/components/System/Window";
 import {Tooltip} from "@heroui/react";
 
-const StatusBar: React.FC = () => {
+const Dock: React.FC = () => {
     const windowManager = useWindowManager()
     const [minimizedWindows, setMinimizedWindows] = useState<WindowProps[]>([])
 
@@ -48,4 +48,4 @@ const StatusBar: React.FC = () => {
     )
 }
 
-export default StatusBar
+export default Dock

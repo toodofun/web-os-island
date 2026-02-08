@@ -11,7 +11,7 @@ const Wallpaper: React.FC<WallpaperProps> = (
         type = "img",
     }) => {
     return (
-        <div className="z-0 absolute inset-0">
+        <div className="z-0 fixed inset-0">
             {type == 'img' && (
                 <img
                     alt="desktop wallpaper image"

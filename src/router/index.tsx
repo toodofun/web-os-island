@@ -1,6 +1,7 @@
 import {createBrowserRouter, type RouteObject} from "react-router-dom";
 import type {RouteHandle} from "../../types/router.ts";
 import BaseLayout from "@/components/Layout/BaseLayout";
+import OperatingSystem from "@/components/System/OperatingSystem";
 
 type AppRouteObject = RouteObject & {
     handle?: RouteHandle
@@ -9,8 +10,12 @@ type AppRouteObject = RouteObject & {
 
 export const routerConfig: AppRouteObject[] = [
     {
-        path: '/',
+        path: '/test',
         element: <BaseLayout/>,
+    },
+    {
+        path: '/',
+        element: <OperatingSystem/>
     }
 ]
 

@@ -5,13 +5,25 @@
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
-html,
-body,
-#root {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+html, body, #root {
+    @apply h-screen w-full m-0 p-0
 }
+
+.xterm {
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+.gpu-acceleration {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.will-change-transform {
+    will-change: transform, width, height, opacity;
+}
+
 
 ::-webkit-scrollbar {
     width: 6px;

@@ -1,6 +1,7 @@
 import React from "react";
 import DateTime from "@/components/System/Common/DateTime";
 import {Cog6ToothIcon, SparklesIcon, WifiIcon} from "@heroicons/react/24/outline";
+import {Tooltip} from "@heroui/react";
 
 const SystemBar: React.FC = () => {
     return (
@@ -9,12 +10,14 @@ const SystemBar: React.FC = () => {
             <div className="flex items-center gap-4">
                 {/* 最小化图标栏 */}
                 <div className="flex items-center gap-3">
-                    <button onPointerDown={(e) => e.stopPropagation()}
-                            className="w-4 h-4 transition rounded-full cursor-pointer">
-                        <SparklesIcon
-                            className="w-full h-full object-cover font-medium"
-                            strokeWidth={2}/>
-                    </button>
+                    <Tooltip content="智能助手" showArrow>
+                        <button onPointerDown={(e) => e.stopPropagation()}
+                                className="w-4 h-4 transition rounded-full cursor-pointer">
+                            <SparklesIcon
+                                className="w-full h-full object-cover font-medium"
+                                strokeWidth={2}/>
+                        </button>
+                    </Tooltip>
                     <button onPointerDown={(e) => e.stopPropagation()}
                             className="w-4 h-4 transition rounded-full cursor-pointer">
                         <Cog6ToothIcon

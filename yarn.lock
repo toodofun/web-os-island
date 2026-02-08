@@ -1079,7 +1079,7 @@
     "@react-aria/toast" "3.0.9"
     "@react-stately/toast" "3.1.2"
 
-"@heroui/tooltip@2.2.27":
+"@heroui/tooltip@2.2.27", "@heroui/tooltip@^2.2.27":
   version "2.2.27"
   resolved "https://registry.npmmirror.com/@heroui/tooltip/-/tooltip-2.2.27.tgz#4df168407466beb07d18d77ed6fb98aad00e2dc2"
   integrity sha512-EKTg7SznnQdcZiQUw6Dbrz9CAxT9FQGo9JaAfGs9n8cHLbcedTXTEPkJBhpSQ0ZlICZnZIHIRXnnXGCgAGJYnA==

@@ -100,23 +100,11 @@ export const WindowManager: React.FC<WindowManagerProps> = (
             const windows = new Map(prev.windows)
             windows.delete(id)
 
-            // 确定新的 activeWindowId
-            const remainingWindows = Array.from(windows.values())
-            const sortedWindow = remainingWindows.sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0))
-            const newActiveWindowId = sortedWindow.length > 0 ? sortedWindow[0].id : null
-
-            // 将新选中的窗口设置为 active，其他窗口设置为非 active
-            for (const [windowId, window] of windows.entries()) {
-                if (windowId === newActiveWindowId) {
-                    windows.set(windowId, {...window, isActive: true})
-                } else {
-                    windows.set(windowId, {...window, isActive: false})
-                }
-            }
+            const {windows: newWindows, activeWindowId: newActiveWindowId} = bringMaxZIndexToFront(windows)
 
             return {
                 ...prev,
-                windows,
+                windows: newWindows,
                 activeWindowId: newActiveWindowId,
             }
         })
@@ -130,10 +118,35 @@ export const WindowManager: React.FC<WindowManagerProps> = (
             if (!currentWindow) return prev
 
             windows.set(id, {...currentWindow, ...updates})
-            const newState = {...prev, windows}
+
+            const {windows: newWindows, activeWindowId: newActiveWindowId} = bringMaxZIndexToFront(windows)
+
+            const newState = {...prev, windows: newWindows, activeWindowId: newActiveWindowId}
             setTimeout(() => notifySubscribers(), 0)
+
             return newState
         })
+    }
+
+    const bringMaxZIndexToFront = (windows: Map<string, WindowProps>) => {
+        // 确定新的 activeWindowId
+        const remainingWindows = Array.from(windows.values())
+        const sortedWindow = remainingWindows.filter(i => !i.isMinimized).sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0))
+        const newActiveWindowId = sortedWindow.length > 0 ? sortedWindow[0].id : null
+
+        // 将新选中的窗口设置为 active，其他窗口设置为非 active
+        for (const [windowId, window] of windows.entries()) {
+            if (windowId === newActiveWindowId) {
+                windows.set(windowId, {...window, isActive: true})
+            } else {
+                windows.set(windowId, {...window, isActive: false})
+            }
+        }
+
+        return {
+            windows,
+            activeWindowId: newActiveWindowId,
+        }
     }
 
     const getMinimizedWindows = () => {

@@ -9,12 +9,14 @@ const Desktop: React.FC = () => {
 
     useEffect(() => {
         windowsManager.registerWindow("123", {
-            title: "Desktop",
+            title: "测试应用",
+            icon: "https://hexgl.bkcore.com/play/css/title.png",
             children: <Application type={'builtin'} children={<Loading/>}/>,
         })
         windowsManager.registerWindow("1232", {
-            title: "Desktop 2",
-            size: {width: 1440, height: 900},
+            title: "原神",
+            icon: "https://i04piccdn.sogoucdn.com/a72804451f0e9825",
+            // size: {width: 1440, height: 900},
             children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
         })
     }, [])

@@ -16,6 +16,7 @@
     "@heroicons/react": "^2.2.0",
     "@heroui/image": "^2.2.19",
     "@heroui/react": "^2.8.8",
+    "@heroui/tooltip": "^2.2.27",
     "@tailwindcss/vite": "^4.1.18",
     "ahooks": "^3.9.6",
     "axios": "^1.13.4",

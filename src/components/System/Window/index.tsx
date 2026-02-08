@@ -7,6 +7,7 @@ import type {
 import React, {type ReactNode, useCallback, useEffect, useState} from "react";
 import {useDraggable} from "@dnd-kit/core";
 import {CSS} from "@dnd-kit/utilities";
+import {ArrowsPointingInIcon, ArrowsPointingOutIcon, MinusIcon, XMarkIcon} from "@heroicons/react/24/outline";
 
 export interface WindowProps {
     id: string
@@ -276,14 +277,51 @@ const Window: React.FC<WindowProps> = (
                     e.stopPropagation()
                     onFocus?.()
                 }}
-                className="shrink-0 flex items-center justify-between px-2 py-2 bg-gray-100 cursor-move select-none"
+                className="shrink-0 flex items-center justify-between px-2 py-1 bg-gray-100 cursor-move select-none"
                 onDoubleClick={isMaximized ? handleRestore : onMaximize}
             >
-                header {title} {icon}
-                <div onClick={() => {
-                    handleMinimize()
-                    onClose?.()
-                }}></div>
+                <div className="flex items-center gap-2">
+                    <div className="cursor-pointer hover:bg-white/10 rounded overflow-hidden">
+                        <img src={icon} alt={title} className="w-4 h-4 object-cover"/>
+                    </div>
+                    <div className="text-sm font-medium">{title}</div>
+                </div>
+                {/* 窗口控制器 */}
+                <div className="flex items-center gap-2">
+                    <div className="flex gap-2" onPointerDown={(e) => e.stopPropagation()}>
+                        <button onClick={onClose} onPointerDown={(e) => e.stopPropagation()}
+                                className="p-0.5 w-4 h-4 transition rounded-full bg-red-500/80">
+                            <XMarkIcon
+                                className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                strokeWidth={3}
+                            />
+                        </button>
+                        <button onClick={handleMinimize} onPointerDown={(e) => e.stopPropagation()}
+                                className="p-0.5 w-4 h-4 transition rounded-full bg-yellow-300/80">
+                            <MinusIcon
+                                className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                strokeWidth={3}
+                            />
+                        </button>
+                        {isMaximized ? (
+                            <button onClick={handleRestore} onPointerDown={(e) => e.stopPropagation()}
+                                    className="p-0.5 w-4 h-4 transition rounded-full bg-green-300/80">
+                                <ArrowsPointingInIcon
+                                    className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                    strokeWidth={3}
+                                />
+                            </button>
+                        ) : (
+                            <button onClick={onMaximize} onPointerDown={(e) => e.stopPropagation()}
+                                    className="p-0.5 w-4 h-4 transition rounded-full bg-green-300/80">
+                                <ArrowsPointingOutIcon
+                                    className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                    strokeWidth={3}
+                                />
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
 
             {/* Body */}

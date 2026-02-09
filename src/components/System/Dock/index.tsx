@@ -3,7 +3,6 @@ import {useWindowManager} from "@/components/System/WindowManager";
 import type {WindowProps} from "@/components/System/Window";
 import {Tooltip} from "@heroui/react";
 import type {CreateWindowProps} from "@/components/System/WindowManager/windowManager.type.ts";
-import {v4 as uuidv4} from "uuid";
 
 const Dock: React.FC = () => {
     const windowManager = useWindowManager()
@@ -13,7 +12,7 @@ const Dock: React.FC = () => {
     useEffect(() => {
         const updateWindows = () => {
             const minimizedWindows = windowManager.getMinimizedWindows()
-            const dockedWindows = windowManager.getDockedWindows()
+            const dockedWindows = windowManager.getDockedApplications()
             setMinimizedWindows(minimizedWindows)
             setDockedWindows(dockedWindows)
         }
@@ -35,8 +34,7 @@ const Dock: React.FC = () => {
                             key={window.id}
                             data-window-target={window.id}
                             onClick={() => {
-                                const id = window.singleton ? window.id! : uuidv4()
-                                windowManager.registerWindow(id, window)
+                                windowManager.registerWindow(window)
                             }}
                         >
                             <div

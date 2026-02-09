@@ -297,7 +297,7 @@ const Window: React.FC<WindowProps> = (
                             />
                         </button>
                         <button onClick={handleMinimize} onPointerDown={(e) => e.stopPropagation()}
-                                className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-orange-300/80">
+                                className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-yellow-400/80">
                             <MinusIcon
                                 className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                 strokeWidth={3}
@@ -305,7 +305,7 @@ const Window: React.FC<WindowProps> = (
                         </button>
                         {isMaximized ? (
                             <button onClick={handleRestore} onPointerDown={(e) => e.stopPropagation()}
-                                    className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-green-300/80">
+                                    className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-green-500/80">
                                 <ArrowsPointingInIcon
                                     className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                     strokeWidth={3}
@@ -313,7 +313,7 @@ const Window: React.FC<WindowProps> = (
                             </button>
                         ) : (
                             <button onClick={onMaximize} onPointerDown={(e) => e.stopPropagation()}
-                                    className="cursor-pointer p-0.5 w-4 h-4 transition rounded-full bg-green-300/80">
+                                    className="cursor-pointer p-0.5 w-4 h-4 transition rounded-full bg-green-500/80">
                                 <ArrowsPointingOutIcon
                                     className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
                                     strokeWidth={3}

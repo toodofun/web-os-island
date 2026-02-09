@@ -1,11 +1,13 @@
 import React, {createContext, useContext, useState} from 'react'
 import type {
+    CreateWindowProps,
     WindowManagerContextType,
     WindowManagerState
 } from "@/components/System/WindowManager/windowManager.type.ts";
 import Window, {type WindowProps} from "@/components/System/Window";
 import {DndContext, type DragEndEvent} from "@dnd-kit/core";
 import {restrictToWindowEdges} from "@dnd-kit/modifiers";
+import {v4 as uuidv4} from "uuid";
 import Application from "@/components/System/Application";
 
 export interface WindowManagerProps {
@@ -34,20 +36,42 @@ export const WindowManager: React.FC<WindowManagerProps> = (
     const [state, setState] = useState<WindowManagerState>({
         windows: new Map(),
         activeWindowId: defaultActiveWindow || null,
-        dockedWindows: [
+        dockedApplications: [
             {
+                id: "test",
                 title: "测试应用",
                 icon: "https://hexgl.bkcore.com/play/css/title.png",
                 // children: <Application type={'builtin'} children={<TestApp/>}/>,
-                children: <Application type={'third'} href="/app/test"/>
+                // children: <Application type={'third'} href="/app/test"/>,
+                href: "/app/test"
             },
             {
                 id: 'genshin',
                 title: "原神",
                 singleton: true,
                 icon: "https://i04piccdn.sogoucdn.com/a72804451f0e9825",
+                href: "https://genshin.titlecan.cn/"
                 // size: {width: 1440, height: 900},
-                children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
+                // children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
+            }
+        ],
+        desktopApplications: [
+            {
+                id: "test",
+                title: "测试应用",
+                icon: "https://hexgl.bkcore.com/play/css/title.png",
+                // children: <Application type={'builtin'} children={<TestApp/>}/>,
+                // children: <Application type={'third'} href="/app/test"/>,
+                href: "/app/test"
+            },
+            {
+                id: 'genshin',
+                title: "原神",
+                singleton: true,
+                icon: "https://i04piccdn.sogoucdn.com/a72804451f0e9825",
+                href: "https://genshin.titlecan.cn/"
+                // size: {width: 1440, height: 900},
+                // children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
             }
         ],
         highestZIndex: 1000,
@@ -67,8 +91,9 @@ export const WindowManager: React.FC<WindowManagerProps> = (
     }
 
     // 注册窗口
-    const registerWindow = (id: string, initialState: Partial<WindowProps>) => {
+    const registerWindow = (initialState: CreateWindowProps) => {
         setState((prev) => {
+            const id = initialState.singleton ? initialState.id : uuidv4()
             const windows = new Map(prev.windows)
             const newZIndex = prev.highestZIndex + 1
 
@@ -77,6 +102,7 @@ export const WindowManager: React.FC<WindowManagerProps> = (
             const activeWindowId = filteredWindow.length > 0 ? filteredWindow[0].id : null
 
             if (activeWindowId) {
+                updateWindow(activeWindowId, {isMinimized: false})
                 bringToFront(activeWindowId)
                 return prev
             }
@@ -96,9 +122,10 @@ export const WindowManager: React.FC<WindowManagerProps> = (
             }
 
             windows.set(id, {
+                ...initialState,
                 id,
                 title: initialState.title || 'Untitled',
-                position: initialState.position || {
+                position: {
                     x: (window.innerWidth - size.width) / 2,
                     y: (window.innerHeight - size.height) / 2
                 },
@@ -106,9 +133,9 @@ export const WindowManager: React.FC<WindowManagerProps> = (
                 isActive: true,
                 isMaximized: false,
                 isMinimized: false,
-                icon: initialState.icon || '',
+                icon: initialState.icon,
                 zIndex: newZIndex,
-                ...initialState,
+                children: <Application type={'third'} key={id} href={initialState.href}/>
             })
 
             return {
@@ -191,8 +218,12 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         return minimizedWindows
     }
 
-    const getDockedWindows = () => {
-        return state.dockedWindows
+    const getDockedApplications = () => {
+        return state.dockedApplications
+    }
+
+    const getDesktopApplications = () => {
+        return state.desktopApplications
     }
 
     const bringToFront = (id: string) => {
@@ -219,6 +250,10 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         })
     }
 
+    const refresh = () => {
+        console.log("refresh")
+    }
+
     const handleDragEnd = (event: DragEndEvent) => {
         const {active, delta} = event
         const id = active.id.toString().replace('draggable-', '')
@@ -239,8 +274,10 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         updateWindow,
         bringToFront,
         getMinimizedWindows,
-        getDockedWindows,
+        getDockedApplications,
+        getDesktopApplications,
         subscribe,
+        refresh,
     }
 
     return (

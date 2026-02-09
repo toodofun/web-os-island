@@ -18,7 +18,7 @@ const Application: React.FC<ApplicationProps> = (
             {type === 'builtin' && children}
             {type === 'third' && (
                 <iframe
-                    className="w-full h-full will-change-auto"
+                    className="w-full h-full will-change-auto select-none"
                     allow="camera;microphone;clipboard-write;clipboard-read;"
                     sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-storage-access-by-user-activation allow-downloads"
                     referrerPolicy="origin"

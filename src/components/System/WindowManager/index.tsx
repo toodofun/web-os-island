@@ -114,6 +114,20 @@ export const WindowManager: React.FC<WindowManagerProps> = (
                 size: {width: 1280, height: 720},
                 href: 'https://hexgl.bkcore.com/play/'
             },
+            {
+                id: "zhongguose",
+                title: '中国色',
+                icon: 'https://zhongguose.com/apple-touch-icon.png',
+                size: {width: 1280, height: 720},
+                href: 'https://zhongguose.com/'
+            },
+            {
+                id: "excalidraw",
+                title: 'Excalidraw',
+                icon: 'https://excalidraw.com/apple-touch-icon.png',
+                size: {width: 1280, height: 720},
+                href: 'https://excalidraw.com/'
+            },
         ],
         highestZIndex: 1000,
     })

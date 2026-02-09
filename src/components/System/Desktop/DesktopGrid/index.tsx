@@ -5,7 +5,7 @@ import type {CreateWindowProps} from "@/components/System/WindowManager/windowMa
 import {useWindowManager} from "@/components/System/WindowManager";
 
 const CELL_SIZE = 80;
-const GAP = 6;
+const GAP = 12;
 
 type Props = {
     items?: CreateWindowProps[];

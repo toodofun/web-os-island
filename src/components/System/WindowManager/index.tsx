@@ -57,12 +57,46 @@ export const WindowManager: React.FC<WindowManagerProps> = (
         ],
         desktopApplications: [
             {
-                id: "test",
-                title: "测试应用",
-                icon: "https://hexgl.bkcore.com/play/css/title.png",
-                // children: <Application type={'builtin'} children={<TestApp/>}/>,
-                // children: <Application type={'third'} href="/app/test"/>,
-                href: "/app/test"
+                id: "hero-icon",
+                title: "HeroIcon",
+                icon: "https://heroicons.com/_next/static/media/apple-touch-icon.822687be.png",
+                href: "https://heroicons.com/outline",
+                size: {width: 1440, height: 900}
+            },
+            {
+                id: "hero-ui",
+                title: "HeroUI",
+                icon: "https://www.heroui.com/apple-touch-icon.png",
+                href: "https://www.heroui.com/docs/components/button",
+                size: {width: 1440, height: 900}
+            },
+            {
+                id: "haowallpaper",
+                title: "哲风壁纸",
+                icon: "https://haowallpaper.com/favicon.ico",
+                href: "https://haowallpaper.com/",
+                size: {width: 1440, height: 900}
+            },
+            {
+                id: "youdao",
+                title: "有道翻译",
+                icon: "https://ydlunacommon-cdn.nosdn.127.net/31cf4b56e6c0b3af668aa079de1a898c.png",
+                href: "https://fanyi.youdao.com/#/TextTranslate",
+                size: {width: 1440, height: 900}
+            },
+            {
+                id: "doubao",
+                title: "豆包",
+                icon: "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/chat/favicon.png",
+                href: "https://www.doubao.com/chat/",
+                size: {width: 1440, height: 900}
+            },
+            {
+                id: "relationship",
+                title: '亲戚计算器',
+                icon: 'https://th.bing.com/th/id/OIP.nfFu7l8TPI6fnX5Fb8bJ_QHaHa?rs=1&pid=ImgDetMain',
+                size: {width: 338, height: 600},
+                href: 'https://passer-by.com/relationship/vue/#/',
             },
             {
                 id: 'genshin',
@@ -72,7 +106,14 @@ export const WindowManager: React.FC<WindowManagerProps> = (
                 href: "https://genshin.titlecan.cn/"
                 // size: {width: 1440, height: 900},
                 // children: <Application type={'third'} href="https://genshin.titlecan.cn/"/>,
-            }
+            },
+            {
+                id: "hexgl",
+                title: 'HexGL赛车',
+                icon: 'https://hexgl.bkcore.com/play/css/title.png',
+                size: {width: 1280, height: 720},
+                href: 'https://hexgl.bkcore.com/play/'
+            },
         ],
         highestZIndex: 1000,
     })

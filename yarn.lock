@@ -3557,6 +3557,11 @@
     "@rolldown/pluginutils" "1.0.0-rc.2"
     "@swc/core" "^1.15.11"
 
+"@xterm/xterm@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.npmmirror.com/@xterm/xterm/-/xterm-6.0.0.tgz#93637b0f2ee3a70718b5746a27c9c506af16745b"
+  integrity sha512-TQwDdQGtwwDt+2cgKDLn0IRaSxYu1tSUjgKarSDkUM0ZNiSRXFpjxEsvc/Zgc5kq5omJ+V0a8/kIM2WD3sMOYg==
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmmirror.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -5000,6 +5005,31 @@ word-wrap@^1.2.5:
   version "1.2.5"
   resolved "https://registry.npmmirror.com/word-wrap/-/word-wrap-1.2.5.tgz#d2c45c6dd4fbce621a66f136cbe328afd0410b34"
   integrity sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==
+
+xterm-addon-attach@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.npmmirror.com/xterm-addon-attach/-/xterm-addon-attach-0.9.0.tgz#dd18057f147a402de1df852c1de4c8f3b63b37be"
+  integrity sha512-NykWWOsobVZPPK3P9eFkItrnBK9Lw0f94uey5zhqIVB1bhswdVBfl+uziEzSOhe2h0rT9wD0wOeAYsdSXeavPw==
+
+xterm-addon-fit@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.npmmirror.com/xterm-addon-fit/-/xterm-addon-fit-0.8.0.tgz#48ca99015385141918f955ca7819e85f3691d35f"
+  integrity sha512-yj3Np7XlvxxhYF/EJ7p3KHaMt6OdwQ+HDu573Vx1lRXsVxOcnVJs51RgjZOouIZOczTsskaS+CpXspK81/DLqw==
+
+xterm-addon-serialize@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.npmmirror.com/xterm-addon-serialize/-/xterm-addon-serialize-0.11.0.tgz#e8b34a3618750a9e132562a6459627059c031226"
+  integrity sha512-2CNDnmLdLkNWfsxNFkGsI5FE9W/BbsMzeOrbu59yNqH9L6k1gmL+Ab6VXxEp2NQUJSzaiqi6t0nFR5k5EDkVIg==
+
+xterm-addon-unicode11@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmmirror.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.6.0.tgz#733fd17bdf2ae6e818493db1d41241c999de0786"
+  integrity sha512-5pkb8YoS/deRtNqQRw8t640mu+Ga8B2MG3RXGQu0bwgcfr8XiXIRI880TWM49ICAHhTmnOLPzIIBIjEnCq7k2A==
+
+xterm-addon-web-links@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.npmmirror.com/xterm-addon-web-links/-/xterm-addon-web-links-0.9.0.tgz#c65b18588d1f613e703eb6feb7f129e7ff1c63e7"
+  integrity sha512-LIzi4jBbPlrKMZF3ihoyqayWyTXAwGfu4yprz1aK2p71e9UKXN6RRzVONR0L+Zd+Ik5tPVI9bwp9e8fDTQh49Q==
 
 yallist@^3.0.2:
   version "3.1.1"

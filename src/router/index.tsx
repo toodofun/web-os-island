@@ -18,6 +18,10 @@ export const routerConfig: AppRouteObject[] = [
             {
                 path: 'test',
                 element: <LazyLoad component={lazy(() => import('@/apps/TestApp'))}/>
+            },
+            {
+                path: 'terminal',
+                element: <LazyLoad component={lazy(() => import('@/apps/TestTerminal'))}/>
             }
         ]
     },

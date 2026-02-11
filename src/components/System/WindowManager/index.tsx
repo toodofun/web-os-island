@@ -4,8 +4,9 @@ import Window, {type WindowProps} from '@/components/System/Window';
 import {DndContext, type DragEndEvent} from '@dnd-kit/core';
 import {restrictToWindowEdges} from '@dnd-kit/modifiers';
 import Application from '@/components/System/Application';
-import {useAppsStore} from '@/stores/appsStore';
-import {type PersistedWindow, useWindowsStore} from '@/stores/windowsStore';
+import { useShallow } from 'zustand/react/shallow';
+import { useAppsStore } from '@/stores/appsStore';
+import { type PersistedWindow, useWindowsStore } from '@/stores/windowsStore';
 
 export interface WindowManagerProps {
     children?: React.ReactNode;
@@ -54,11 +55,18 @@ function persistedToWindowProps(
 
 export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
     const windows = useWindowsStore((s) => s.windows);
+    const activeWindowId = useWindowsStore((s) => s.activeWindowId);
+    const minimizedWindows = useWindowsStore(
+        useShallow((s) =>
+            Object.values(s.windows)
+                .filter((w) => w.isMinimized)
+                .sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0))
+        )
+    );
     const registerWindow = useWindowsStore((s) => s.registerWindow);
     const unregisterWindow = useWindowsStore((s) => s.unregisterWindow);
     const updateWindow = useWindowsStore((s) => s.updateWindow);
     const bringToFront = useWindowsStore((s) => s.bringToFront);
-    const getMinimizedWindows = useWindowsStore((s) => s.getMinimizedWindows);
     const dockApplications = useAppsStore((s) => s.dockApplications);
     const desktopApplications = useAppsStore((s) => s.desktopApplications);
 
@@ -71,13 +79,22 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
         useAppsStore.getState().refresh();
     }, []);
 
+    const getActiveWindow = useCallback(() => {
+        const id = activeWindowId;
+        return id && windows[id] ? windows[id] : null;
+    }, [activeWindowId, windows]);
+
     const contextValue: WindowManagerContextType = useMemo(
         () => ({
             registerWindow,
             unregisterWindow,
             updateWindow,
             bringToFront,
-            getMinimizedWindows,
+            minimizedWindows,
+            getActiveWindow,
+            dockApplications,
+            desktopApplications,
+            getMinimizedWindows: () => minimizedWindows,
             getDockedApplications: () => dockApplications,
             getDesktopApplications: () => desktopApplications,
             refresh,
@@ -87,10 +104,11 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
             unregisterWindow,
             updateWindow,
             bringToFront,
-            getMinimizedWindows,
+            getActiveWindow,
+            refresh,
+            minimizedWindows,
             dockApplications,
             desktopApplications,
-            refresh,
         ]
     );
 

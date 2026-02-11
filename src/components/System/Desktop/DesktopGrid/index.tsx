@@ -45,7 +45,7 @@ function IconCell(
 
 const DesktopGrid = ({ items: initialItems = [] }: Props) => {
     const windowManager = useWindowManager();
-    const desktopApplications = windowManager.getDesktopApplications();
+    const desktopApplications = windowManager.desktopApplications;
     const applications = desktopApplications.length > 0 ? desktopApplications : initialItems;
     const wrapRef = useRef<HTMLDivElement>(null);
     const [cols, setCols] = useState(0);

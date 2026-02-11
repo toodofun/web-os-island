@@ -1,5 +1,5 @@
-import type { WindowProps } from '@/components/System/Window';
-import type { WindowSize } from '@/components/System/Window/window.type';
+import type {WindowProps} from '@/components/System/Window';
+import type {WindowSize} from '@/components/System/Window/window.type';
 
 export type CreateWindowProps = {
     id: string;
@@ -20,12 +20,18 @@ export interface WindowManagerState {
     highestZIndex: number;
 }
 
+export type MinimizedWindowItem = Pick<WindowProps, 'id' | 'title' | 'icon' | 'position' | 'size' | 'isMinimized' | 'zIndex'>;
+
 export interface WindowManagerContextType {
     registerWindow: (initialState: CreateWindowProps) => void;
     unregisterWindow: (id: string) => void;
     updateWindow: (id: string, updates: Partial<WindowProps>) => void;
     bringToFront: (id: string) => void;
-    getMinimizedWindows: () => Array<Pick<WindowProps, 'id' | 'title' | 'icon' | 'position' | 'size' | 'isMinimized' | 'zIndex'>>;
+    minimizedWindows: MinimizedWindowItem[];
+    getActiveWindow: () => Pick<WindowProps, 'id' | 'title' | 'icon' | 'position' | 'size' | 'isMinimized' | 'zIndex'> | null;
+    dockApplications: CreateWindowProps[];
+    desktopApplications: CreateWindowProps[];
+    getMinimizedWindows: () => MinimizedWindowItem[];
     getDockedApplications: () => CreateWindowProps[];
     getDesktopApplications: () => CreateWindowProps[];
     refresh: () => void;

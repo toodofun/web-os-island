@@ -5,8 +5,8 @@ import { Tooltip } from '@heroui/react';
 
 const Dock: React.FC = () => {
     const windowManager = useWindowManager();
-    const dockApplications = windowManager.getDockedApplications();
-    const minimizedWindows = windowManager.getMinimizedWindows();
+    const dockApplications = windowManager.dockApplications;
+    const minimizedWindows = windowManager.minimizedWindows;
 
     return (
         <div className="flex items-center justify-between gap-3 h-full px-4 bg-white/20 backdrop-blur-xs">

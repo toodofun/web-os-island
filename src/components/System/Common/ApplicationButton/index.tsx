@@ -4,7 +4,7 @@ import {useWindowManager} from "@/components/System/WindowManager";
 
 const ApplicationButton: React.FC = () => {
     const windowManager = useWindowManager();
-    return (
+    return windowManager.getActiveWindow()?.title ? (
         <Dropdown>
             <DropdownTrigger>
                 <div className="cursor-pointer transition hover:opacity-80">
@@ -28,6 +28,10 @@ const ApplicationButton: React.FC = () => {
                 </DropdownItem>
             </DropdownMenu>
         </Dropdown>
+    ) : (
+        <div className="cursor-pointer transition hover:opacity-80">
+            {windowManager.getActiveWindow()?.title || 'TOS'}
+        </div>
     )
 }
 

@@ -260,7 +260,7 @@ const Window: React.FC<WindowProps> = (
 
     return (
         <div
-            className={`absolute bg-white shadow-md rounded-lg overflow-hidden flex flex-col ${isActive ? 'ring-0 ring-blue-100 shadow-lg shadow-blue-100' : ''} ${isAnimating ? 'will-change-transform gpu-acceleration' : ''}`}
+            className={`absolute bg-transparent shadow-md rounded-lg overflow-hidden flex flex-col ${isActive ? 'ring-0 ring-blue-100 shadow-xl shadow-sky-200/40' : ''} ${isAnimating ? 'will-change-transform gpu-acceleration' : ''}`}
             style={{
                 ...windowStyle,
                 visibility: isMinimized && !isAnimating ? 'hidden' : 'visible',
@@ -277,7 +277,7 @@ const Window: React.FC<WindowProps> = (
                     e.stopPropagation()
                     onFocus?.()
                 }}
-                className="shrink-0 flex items-center justify-between px-2 py-1 bg-slate-100 cursor-move select-none"
+                className="shrink-0 flex items-center justify-between px-2 py-1 bg-slate-100/80 backdrop-blur-xs cursor-move select-none"
                 onDoubleClick={isMaximized ? handleRestore : onMaximize}
             >
                 <div className="flex items-center gap-2">

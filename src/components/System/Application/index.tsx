@@ -1,32 +1,97 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react';
+
+import Loading from '@/components/Common/Loading';
 
 export interface ApplicationProps {
-    type: 'builtin' | 'third'
-    href?: string
-    children?: React.ReactNode
+    type: 'builtin' | 'third';
+    href?: string;
+    children?: React.ReactNode;
 }
 
-const Application: React.FC<ApplicationProps> = (
-    {
-        type = 'builtin',
-        href,
-        children,
-    }
-) => {
+const Application: React.FC<ApplicationProps> = ({type = 'builtin', href, children}) => {
+    const [isIframeLoading, setIsIframeLoading] = useState(true);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+
+    useEffect(() => {
+        if (type !== 'third' || !href || !iframeRef.current) return;
+
+        const observer = new MutationObserver(mutations => {
+            if (mutations.length > 0 && isIframeLoading) {
+                setIsIframeLoading(false);
+                observer.disconnect();
+            }
+        });
+
+        const handleIframeLoadStart = () => {
+            try {
+                const iframeDoc = iframeRef.current?.contentDocument;
+                if (iframeDoc) {
+                    observer.observe(iframeDoc, {
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
+                    });
+                }
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (e) {
+                console.debug('跨域 iframe，使用 onLoad 事件降级处理');
+            }
+        };
+
+        handleIframeLoadStart();
+
+        const timeout = setTimeout(() => {
+            if (isIframeLoading) {
+                setIsIframeLoading(false);
+                observer.disconnect();
+            }
+        }, 10000);
+
+        return () => {
+            observer.disconnect();
+            clearTimeout(timeout);
+        };
+    }, [type, href, isIframeLoading]);
+
+    const handleIframeLoad = () => {
+        if (isIframeLoading) {
+            setIsIframeLoading(false);
+        }
+    };
+
+    const handleIframeError = () => {
+        setIsIframeLoading(false);
+        console.error('Iframe 加载失败:', href);
+    };
+
     return (
-        <div className="bg-slate-100/20 w-full h-full">
+        <div className='relative h-full w-full bg-slate-300/60 backdrop-blur-xs'>
             {type === 'builtin' && children}
+
             {type === 'third' && (
-                <iframe
-                    className="w-full h-full will-change-auto select-none"
-                    allow="camera;microphone;clipboard-write;clipboard-read;"
-                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-storage-access-by-user-activation allow-downloads"
-                    referrerPolicy="origin"
-                    src={href}
-                ></iframe>
+                <>
+                    {isIframeLoading && (
+                        <div className='absolute inset-0 z-10 flex items-center justify-center bg-slate-300/70'>
+                            <Loading/>
+                        </div>
+                    )}
+
+                    {/* iframe 内容 */}
+                    <iframe
+                        ref={iframeRef}
+                        className='h-full w-full will-change-auto select-none'
+                        allow='camera;microphone;clipboard-write;clipboard-read;'
+                        sandbox='allow-same-origin allow-scripts allow-popups allow-forms allow-storage-access-by-user-activation allow-downloads'
+                        referrerPolicy='origin'
+                        src={href}
+                        onLoad={handleIframeLoad}
+                        onError={handleIframeError}
+                        loading='eager'
+                    ></iframe>
+                </>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Application
+export default Application;

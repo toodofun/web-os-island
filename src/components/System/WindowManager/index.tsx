@@ -1,12 +1,16 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
-import type {WindowManagerContextType} from '@/components/System/WindowManager/windowManager.type';
+import React, {createContext, useCallback, useContext, useEffect, useMemo} from 'react';
+import type {
+    WindowManagerCloseMessage,
+    WindowManagerContextType,
+} from '@/components/System/WindowManager/windowManager.type';
+import {WINDOW_MANAGER_MESSAGE_TYPE_CLOSE} from '@/components/System/WindowManager/windowManager.type';
 import Window, {type WindowProps} from '@/components/System/Window';
 import {DndContext, type DragEndEvent} from '@dnd-kit/core';
 import {restrictToWindowEdges} from '@dnd-kit/modifiers';
 import Application from '@/components/System/Application';
-import { useShallow } from 'zustand/react/shallow';
-import { useAppsStore } from '@/stores/appsStore';
-import { type PersistedWindow, useWindowsStore } from '@/stores/windowsStore';
+import {useShallow} from 'zustand/react/shallow';
+import {useAppsStore} from '@/stores/appsStore';
+import {type PersistedWindow, useWindowsStore} from '@/stores/windowsStore';
 
 export interface WindowManagerProps {
     children?: React.ReactNode;
@@ -48,7 +52,7 @@ function persistedToWindowProps(
         isMinimized: w.isMinimized ?? false,
         isMaximized: w.isMaximized ?? false,
         zIndex: w.zIndex ?? 0,
-        children: <Application type="third" href={w.href}/>,
+        children: <Application type="third" href={w.href} windowId={w.id}/>,
         ...callbacks,
     };
 }
@@ -74,6 +78,18 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
         void useWindowsStore.persist.rehydrate();
         void useAppsStore.getState().refresh();
     }, []);
+
+    // 监听子应用 iframe 通过 postMessage 发出的关闭窗口请求（子应用无法访问主应用 context）
+    useEffect(() => {
+        const handler = (event: MessageEvent) => {
+            const data = event.data as WindowManagerCloseMessage | undefined;
+            if (data?.type === WINDOW_MANAGER_MESSAGE_TYPE_CLOSE) {
+                unregisterWindow(data.windowId);
+            }
+        };
+        window.addEventListener('message', handler);
+        return () => window.removeEventListener('message', handler);
+    }, [unregisterWindow]);
 
     const refresh = useCallback(() => {
         useAppsStore.getState().refresh();

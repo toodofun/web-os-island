@@ -5,10 +5,23 @@ import Loading from '@/components/Common/Loading';
 export interface ApplicationProps {
     type: 'builtin' | 'third';
     href?: string;
+    /** 当前窗口 id，会以 query 注入 iframe src，供子应用通过 postMessage 关闭窗口等 */
+    windowId?: string;
     children?: React.ReactNode;
 }
 
-const Application: React.FC<ApplicationProps> = ({type = 'builtin', href, children}) => {
+function buildIframeSrc(href: string, windowId?: string): string {
+    if (!windowId) return href;
+    try {
+        const url = new URL(href, window.location.origin);
+        url.searchParams.set('__windowId__', windowId);
+        return url.toString();
+    } catch {
+        return href + (href.includes('?') ? '&' : '?') + `__windowId__=${encodeURIComponent(windowId)}`;
+    }
+}
+
+const Application: React.FC<ApplicationProps> = ({type = 'builtin', href, windowId, children}) => {
     const [isIframeLoading, setIsIframeLoading] = useState(true);
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -83,7 +96,7 @@ const Application: React.FC<ApplicationProps> = ({type = 'builtin', href, childr
                         allow='camera;microphone;clipboard-write;clipboard-read;'
                         sandbox='allow-same-origin allow-scripts allow-popups allow-forms allow-storage-access-by-user-activation allow-downloads'
                         referrerPolicy='origin'
-                        src={href}
+                        src={href ? buildIframeSrc(href, windowId) : undefined}
                         onLoad={handleIframeLoad}
                         onError={handleIframeError}
                         loading='eager'

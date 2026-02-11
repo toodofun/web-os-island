@@ -22,6 +22,15 @@ export interface WindowManagerState {
 
 export type MinimizedWindowItem = Pick<WindowProps, 'id' | 'title' | 'icon' | 'position' | 'size' | 'isMinimized' | 'zIndex'>;
 
+/** 子应用通过 postMessage 关闭窗口时使用的 message type（主应用监听 window message） */
+export const WINDOW_MANAGER_MESSAGE_TYPE_CLOSE = 'windowmanager:closeWindow' as const;
+
+/** 子应用 iframe 向主应用 postMessage 的 payload 类型 */
+export interface WindowManagerCloseMessage {
+    type: typeof WINDOW_MANAGER_MESSAGE_TYPE_CLOSE;
+    windowId: string;
+}
+
 export interface WindowManagerContextType {
     registerWindow: (initialState: CreateWindowProps) => void;
     unregisterWindow: (id: string) => void;

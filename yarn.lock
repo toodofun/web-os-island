@@ -593,7 +593,7 @@
     "@heroui/react-utils" "2.1.14"
     "@heroui/shared-utils" "2.1.12"
 
-"@heroui/dropdown@2.3.30":
+"@heroui/dropdown@2.3.30", "@heroui/dropdown@^2.3.30":
   version "2.3.30"
   resolved "https://registry.npmmirror.com/@heroui/dropdown/-/dropdown-2.3.30.tgz#b1973ab09a500a5c754dfd7b5b91db37772ad438"
   integrity sha512-OzsvgxzZkxCGUe5KRKFy+Za3e0HtsvVmZ6jg+JxlDA8z+bryKNBP5VFiBkRdvYEYV5iUia6M0nbJbw/1S0S10A==

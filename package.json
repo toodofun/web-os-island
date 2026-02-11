@@ -16,6 +16,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
     "@heroui/divider": "^2.2.22",
+    "@heroui/dropdown": "^2.3.30",
     "@heroui/image": "^2.2.19",
     "@heroui/react": "^2.8.8",
     "@heroui/tooltip": "^2.2.27",

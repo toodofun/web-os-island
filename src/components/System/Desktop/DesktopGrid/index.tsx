@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import AppIcon from "@/components/System/Common/AppIcon";
-import type {CreateWindowProps} from "@/components/System/WindowManager/windowManager.type.ts";
-import {useWindowManager} from "@/components/System/WindowManager";
+import AppIcon from '@/components/System/Common/AppIcon';
+import type { CreateWindowProps } from '@/components/System/WindowManager/windowManager.type';
+import { useWindowManager } from '@/components/System/WindowManager';
 
 const CELL_SIZE = 80;
 const GAP = 12;
@@ -11,13 +11,14 @@ type Props = {
     items?: CreateWindowProps[];
 };
 
-function IconCell({
-                      item,
-                      onOpen,
-                  }: {
-    item: CreateWindowProps;
-    onOpen: () => void;
-}) {
+function IconCell(
+    {
+        item,
+        onOpen,
+    }: {
+        item: CreateWindowProps;
+        onOpen: () => void;
+    }) {
     const handleContextMenu = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
@@ -42,23 +43,13 @@ function IconCell({
     );
 }
 
-const DesktopGrid = ({items: initialItems = []}: Props) => {
-    const windowManager = useWindowManager()
+const DesktopGrid = ({ items: initialItems = [] }: Props) => {
+    const windowManager = useWindowManager();
+    const desktopApplications = windowManager.getDesktopApplications();
+    const applications = desktopApplications.length > 0 ? desktopApplications : initialItems;
     const wrapRef = useRef<HTMLDivElement>(null);
     const [cols, setCols] = useState(0);
     const [rows, setRows] = useState(0);
-    const [applications, setApplications] = useState<CreateWindowProps[]>(initialItems);
-
-    useEffect(() => {
-        const updateApplication = () => {
-            const desktopApplication = windowManager.getDesktopApplications()
-            setApplications(desktopApplication)
-        }
-        updateApplication()
-
-        const unsubscribe = windowManager.subscribe(updateApplication)
-        return () => unsubscribe()
-    }, [windowManager]);
 
     useEffect(() => {
         const el = wrapRef.current;

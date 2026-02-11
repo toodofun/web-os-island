@@ -79,6 +79,11 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
         useAppsStore.getState().refresh();
     }, []);
 
+    const clearWindowCache = useCallback(() => {
+        useWindowsStore.getState().clearWindowCache();
+        useWindowsStore.persist.clearStorage();
+    }, []);
+
     const getActiveWindow = useCallback(() => {
         const id = activeWindowId;
         return id && windows[id] ? windows[id] : null;
@@ -98,6 +103,7 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
             getDockedApplications: () => dockApplications,
             getDesktopApplications: () => desktopApplications,
             refresh,
+            clearWindowCache,
         }),
         [
             registerWindow,
@@ -106,6 +112,7 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
             bringToFront,
             getActiveWindow,
             refresh,
+            clearWindowCache,
             minimizedWindows,
             dockApplications,
             desktopApplications,

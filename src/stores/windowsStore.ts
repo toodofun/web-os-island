@@ -31,6 +31,8 @@ interface WindowsState {
     bringToFront: (id: string) => void;
     getMinimizedWindows: () => PersistedWindow[];
     getWindowsMap: () => Record<string, PersistedWindow>;
+    /** 清空所有窗口并清除本地持久化缓存 */
+    clearWindowCache: () => void;
 }
 
 function bringMaxZIndexToFront(
@@ -152,6 +154,10 @@ export const useWindowsStore = create<WindowsState>()(
             },
 
             getWindowsMap: () => get().windows,
+
+            clearWindowCache: () => {
+                set({ windows: {}, activeWindowId: null, highestZIndex: 1000 });
+            },
         }),
         {
             name: PERSIST_KEY,

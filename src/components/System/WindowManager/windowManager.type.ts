@@ -35,4 +35,6 @@ export interface WindowManagerContextType {
     getDockedApplications: () => CreateWindowProps[];
     getDesktopApplications: () => CreateWindowProps[];
     refresh: () => void;
+    /** 清空所有窗口并清除本地持久化缓存 */
+    clearWindowCache: () => void;
 }

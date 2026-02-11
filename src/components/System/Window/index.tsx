@@ -260,7 +260,7 @@ const Window: React.FC<WindowProps> = (
 
     return (
         <div
-            className={`absolute bg-transparent shadow-md rounded-lg overflow-hidden flex flex-col ${isActive ? 'ring-0 ring-blue-100 shadow-xl shadow-sky-200/40' : ''} ${isAnimating ? 'will-change-transform gpu-acceleration' : ''}`}
+            className={`absolute bg-transparent shadow-md rounded-xl overflow-hidden flex flex-col ${isActive ? 'ring-0 ring-blue-100 shadow-xl shadow-sky-200/40' : ''} ${isAnimating ? 'will-change-transform gpu-acceleration' : ''}`}
             style={{
                 ...windowStyle,
                 visibility: isMinimized && !isAnimating ? 'hidden' : 'visible',

@@ -2,16 +2,15 @@ import React from "react";
 import DateTime from "@/components/System/Common/DateTime";
 import {Cog6ToothIcon, SparklesIcon, WifiIcon} from "@heroicons/react/24/outline";
 import {Tooltip} from "@heroui/react";
-import {useWindowManager} from "@/components/System/WindowManager";
 import SystemButton from "@/components/System/Common/SystemButton";
+import ApplicationButton from "@/components/System/Common/ApplicationButton";
 
 const SystemBar: React.FC = () => {
-    const windowManager = useWindowManager();
     return (
         <div className="px-4 py-1 flex items-center justify-between">
             <div className="flex items-center gap-2">
                 <SystemButton/>
-                <div>{windowManager.getActiveWindow()?.title || 'TOS'}</div>
+                <ApplicationButton/>
             </div>
             <div className="flex items-center gap-4">
                 {/* 最小化图标栏 */}

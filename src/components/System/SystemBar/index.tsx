@@ -6,7 +6,7 @@ import {Tooltip} from "@heroui/react";
 const SystemBar: React.FC = () => {
     return (
         <div className="px-4 py-1 flex items-center justify-between">
-            <div>Tos</div>
+            <div>TOS</div>
             <div className="flex items-center gap-4">
                 {/* 最小化图标栏 */}
                 <div className="flex items-center gap-3">

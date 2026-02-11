@@ -30,7 +30,7 @@ const Dock: React.FC = () => {
                 {dockedWindows.map((window) => (
                     <Tooltip key={window.id} content={window.title} showArrow={true}>
                         <div
-                            className="bg-white/30 rounded-lg overflow-hidden"
+                            className="bg-white rounded-lg overflow-hidden"
                             key={window.id}
                             data-window-target={window.id}
                             onClick={() => {
@@ -38,7 +38,7 @@ const Dock: React.FC = () => {
                             }}
                         >
                             <div
-                                className="cursor-pointer hover:bg-white/50 bg-white/30 h-7 p-0"
+                                className="cursor-pointer hover:bg-white/80 bg-white h-7 p-0"
                                 style={{aspectRatio: 1}}>
                                 <img src={window.icon} alt={window.title}
                                      className="w-full h-full object-contain"/>
@@ -54,7 +54,7 @@ const Dock: React.FC = () => {
                         {minimizedWindows.map((window) => (
                             <Tooltip key={window.id} content={window.title} showArrow={true}>
                                 <div
-                                    className="bg-white/30 rounded"
+                                    className="bg-white rounded"
                                     key={window.id}
                                     data-window-target={window.id}
                                     onClick={() => {
@@ -63,7 +63,7 @@ const Dock: React.FC = () => {
                                     }}
                                 >
                                     <div
-                                        className="cursor-pointer hover:bg-white/50 bg-white/30 h-7 p-0 rounded overflow-hidden"
+                                        className="cursor-pointer hover:bg-white/80 bg-white h-7 p-0 rounded overflow-hidden"
                                         style={{aspectRatio: 1}}>
                                         <img src={window.icon} alt={window.title}
                                              className="w-full h-full rounded-md object-contain"/>

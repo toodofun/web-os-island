@@ -22,7 +22,7 @@ const Terminal: React.FC = () => {
 
     const url = useMemo(() => {
         const parsed = parsePayloadToWsUrl(payload)
-        return parsed ?? ''
+        return parsed ?? 'ws://localhost:8765'
     }, [payload])
 
     const {ref} = useXTerm({url})

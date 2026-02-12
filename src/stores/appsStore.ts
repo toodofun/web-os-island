@@ -76,6 +76,13 @@ async function fetchDesktopApplications(): Promise<CreateWindowProps[]> {
             size: {width: 1280, height: 720},
             href: 'https://excalidraw.com/'
         },
+        {
+            id: 'terminal',
+            title: '终端',
+            icon: '/icons/terminal.svg',
+            href: '/app/terminal',
+            size: {width: 800, height: 480}
+        },
     ];
 }
 
@@ -83,7 +90,7 @@ async function fetchDockApplications(): Promise<CreateWindowProps[]> {
     await new Promise((r) => setTimeout(r, 200));
     return [
         {id: 'test', title: '测试应用', icon: 'https://hexgl.bkcore.com/play/css/title.png', href: '/app/test'},
-        {id: 'terminal', title: '终端', icon: 'https://hexgl.bkcore.com/play/css/title.png', href: '/app/terminal'},
+        {id: 'terminal', title: '终端', icon: '/icons/terminal.svg', href: '/app/terminal'},
         {
             id: 'genshin',
             title: '原神',

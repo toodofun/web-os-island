@@ -22,7 +22,7 @@ const Desktop: React.FC = () => {
     return (
         <>
             {/*<Wallpaper src="https://img-baofun.zhhainiao.com/market/5/381773.mp4" type="video"/>*/}
-            <Wallpaper src="/bg-default-1-mini.jpg" type="img"/>
+            <Wallpaper src="/backgrounds/bg-default-1-mini.jpg" type="img"/>
             <DesktopGrid/>
         </>
     )

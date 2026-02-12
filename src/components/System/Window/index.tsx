@@ -289,37 +289,37 @@ const Window: React.FC<WindowProps> = (
                 {/* 窗口控制器 */}
                 <div className="flex items-center gap-2">
                     <div className="flex gap-2" onPointerDown={(e) => e.stopPropagation()}>
-                        <button onClick={onClose} onPointerDown={(e) => e.stopPropagation()}
-                                className="p-0.5 w-3.75 h-3.75 transition rounded-full bg-red-500/80">
-                            <XMarkIcon
-                                className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
-                                strokeWidth={3}
-                            />
-                        </button>
                         <button onClick={handleMinimize} onPointerDown={(e) => e.stopPropagation()}
-                                className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-yellow-400/80">
+                                className="cursor-pointer w-5 h-5 transition bg-transparent hover:bg-slate-200/60 rounded">
                             <MinusIcon
-                                className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                className="w-full h-full object-cover text-slate-500 hover:text-green-600 font-medium opacity-100 hover:opacity-80 transition-opacity duration-200"
                                 strokeWidth={3}
                             />
                         </button>
                         {isMaximized ? (
                             <button onClick={handleRestore} onPointerDown={(e) => e.stopPropagation()}
-                                    className="cursor-pointer p-0.5 w-3.75 h-3.75 transition rounded-full bg-green-500/80">
+                                    className="cursor-pointer w-5 h-5 transition bg-transparent hover:bg-slate-200/60 rounded">
                                 <ArrowsPointingInIcon
-                                    className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                    className="w-full h-full object-cover text-slate-500 hover:text-sky-500 font-medium opacity-100 hover:opacity-80 transition-opacity duration-200"
                                     strokeWidth={3}
                                 />
                             </button>
                         ) : (
                             <button onClick={onMaximize} onPointerDown={(e) => e.stopPropagation()}
-                                    className="cursor-pointer p-0.5 w-4 h-4 transition rounded-full bg-green-500/80">
+                                    className="cursor-pointer p-0.5 w-5 h-5 transition bg-transparent hover:bg-slate-200/60 rounded">
                                 <ArrowsPointingOutIcon
-                                    className="w-full h-full object-cover text-black font-medium opacity-0 hover:opacity-100 transition-opacity duration-200"
+                                    className="w-full h-full object-cover text-slate-500 hover:text-sky-500 font-medium opacity-100 hover:opacity-80 transition-opacity duration-200"
                                     strokeWidth={3}
                                 />
                             </button>
                         )}
+                        <button onClick={onClose} onPointerDown={(e) => e.stopPropagation()}
+                                className="cursor-pointer w-5 h-5 transition bg-transparent hover:bg-slate-200/60 rounded">
+                            <XMarkIcon
+                                className="w-full h-full object-cover text-slate-500 hover:text-red-500 font-medium opacity-100 hover:opacity-80 transition-colors duration-200"
+                                strokeWidth={3}
+                            />
+                        </button>
                     </div>
                 </div>
             </div>

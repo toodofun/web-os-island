@@ -17,20 +17,20 @@ const SystemBar: React.FC = () => {
                 <div className="flex items-center gap-3">
                     <Tooltip content="智能助手" showArrow>
                         <button onPointerDown={(e) => e.stopPropagation()}
-                                className="w-4 h-4 transition rounded-full cursor-pointer">
+                                className="w-5 h-5 transition rounded-full cursor-pointer">
                             <SparklesIcon
                                 className="w-full h-full object-cover font-medium"
                                 strokeWidth={2}/>
                         </button>
                     </Tooltip>
                     <button onPointerDown={(e) => e.stopPropagation()}
-                            className="w-4 h-4 transition rounded-full cursor-pointer">
+                            className="w-5 h-5 transition rounded-full cursor-pointer">
                         <Cog6ToothIcon
                             className="w-full h-full object-cover font-medium"
                             strokeWidth={2}/>
                     </button>
                     <button onPointerDown={(e) => e.stopPropagation()}
-                            className="w-4 h-4 transition rounded-full cursor-pointer">
+                            className="w-5 h-5 transition rounded-full cursor-pointer">
                         <WifiIcon
                             className="w-full h-full object-cover font-medium"
                             strokeWidth={2}/>

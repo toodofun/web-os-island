@@ -27,7 +27,7 @@ const AppIcon: React.FC<AppIconProps> = (
         >
             <div className="flex items-center justify-center bg-slate-100 rounded-xl overflow-hidden aspect-square"
                  style={{width: size * 0.7}}>
-                <img alt={title} src={icon}/>
+                <img alt={title} src={icon} className="object-contain!"/>
             </div>
             <div
                 className="text-xs font-medium truncate w-full text-center leading-tight text-white mix-blend-difference">

@@ -57,11 +57,13 @@ export function isAllowedOpenWindowHref(href: string): boolean {
     return ALLOWED_OPEN_WINDOW_PROTOCOLS.some((protocol) => href.startsWith(protocol));
 }
 
-/** 打开新窗口：只传协议 URL，各协议在主应用内单独实现打开逻辑（当前支持 terminal://<base64_str>） */
+/** 打开新窗口：只传协议 URL，可传窗口标题；各协议在主应用内单独实现打开逻辑 */
 export interface WindowManagerOpenMessage {
     type: typeof WINDOW_MANAGER_MESSAGE_TYPE_OPEN;
     /** 协议 URL，如 terminal://<base64_str> */
     href: string;
+    /** 可选，窗口标题，不传则使用协议默认标题 */
+    title?: string;
 }
 
 /** 协议打开逻辑：根据协议 href 返回要打开的窗口参数，不支持则返回 null */

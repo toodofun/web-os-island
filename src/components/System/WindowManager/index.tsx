@@ -117,7 +117,8 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
                     break;
                 case WINDOW_MANAGER_MESSAGE_TYPE_OPEN:
                     if ('href' in data && typeof data.href === 'string' && isAllowedOpenWindowHref(data.href)) {
-                        const props = resolveProtocolHrefToWindowProps(data.href);
+                        const title = 'title' in data && typeof data.title === 'string' ? data.title : undefined;
+                        const props = resolveProtocolHrefToWindowProps(data.href, { title });
                         if (props) registerWindow(props);
                     }
                     break;

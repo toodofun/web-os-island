@@ -8,7 +8,8 @@ const TestApp: React.FC = () => {
         if (windowId) {
             window.parent.postMessage({
                 type: 'windowmanager:openWindow',
-                href: 'terminal://' + btoa(JSON.stringify({url: 'ws://localhost:8765'}))
+                href: 'terminal://' + btoa(JSON.stringify({url: 'ws://localhost:8765'})),
+                title: '测试一下终端',
             }, '*')
         }
     };

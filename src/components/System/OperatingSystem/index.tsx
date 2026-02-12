@@ -9,10 +9,10 @@ const OperatingSystem: React.FC = () => {
         <div className="w-screen h-screen overflow-hidden relative">
             <WindowManager>
                 <div
-                    className="absolute z-10 top-0 left-0 right-0 h-6 select-none text-white mix-blend-difference overflow-hidden">
+                    className="absolute z-10 top-0 left-0 right-0 h-8 select-none text-white bg-slate-100/0 shadow-lg backdrop-blur-xs mix-blend-difference overflow-hidden">
                     <SystemBar/>
                 </div>
-                <div className="absolute top-6 bottom-14 z-0 inset-0 select-none">
+                <div className="absolute top-8 bottom-14 z-0 inset-0 select-none">
                     <Desktop/>
                 </div>
                 <div

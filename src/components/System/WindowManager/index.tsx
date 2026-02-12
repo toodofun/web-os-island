@@ -2,8 +2,18 @@ import React, {createContext, useCallback, useContext, useEffect, useMemo} from 
 import type {
     WindowManagerCloseMessage,
     WindowManagerContextType,
+    WindowManagerMaximizeMessage,
+    WindowManagerMinimizeMessage,
+    WindowManagerOpenMessage,
 } from '@/components/System/WindowManager/windowManager.type';
-import {WINDOW_MANAGER_MESSAGE_TYPE_CLOSE} from '@/components/System/WindowManager/windowManager.type';
+import { resolveProtocolHrefToWindowProps } from '@/components/System/WindowManager/protocolOpenHandlers';
+import {
+    isAllowedOpenWindowHref,
+    WINDOW_MANAGER_MESSAGE_TYPE_CLOSE,
+    WINDOW_MANAGER_MESSAGE_TYPE_MAXIMIZE,
+    WINDOW_MANAGER_MESSAGE_TYPE_MINIMIZE,
+    WINDOW_MANAGER_MESSAGE_TYPE_OPEN,
+} from '@/components/System/WindowManager/windowManager.type';
 import Window, {type WindowProps} from '@/components/System/Window';
 import {DndContext, type DragEndEvent} from '@dnd-kit/core';
 import {restrictToWindowEdges} from '@dnd-kit/modifiers';
@@ -79,17 +89,43 @@ export const WindowManager: React.FC<WindowManagerProps> = ({children}) => {
         void useAppsStore.getState().refresh();
     }, []);
 
-    // 监听子应用 iframe 通过 postMessage 发出的关闭窗口请求（子应用无法访问主应用 context）
+    // 监听子应用 iframe 通过 postMessage 发出的窗口操作（子应用无法访问主应用 context）
     useEffect(() => {
         const handler = (event: MessageEvent) => {
-            const data = event.data as WindowManagerCloseMessage | undefined;
-            if (data?.type === WINDOW_MANAGER_MESSAGE_TYPE_CLOSE) {
-                unregisterWindow(data.windowId);
+            const data = event.data as
+                | WindowManagerCloseMessage
+                | WindowManagerMinimizeMessage
+                | WindowManagerMaximizeMessage
+                | WindowManagerOpenMessage
+                | undefined;
+            if (!data || typeof data !== 'object') return;
+            switch (data.type) {
+                case WINDOW_MANAGER_MESSAGE_TYPE_CLOSE:
+                    if ('windowId' in data && typeof data.windowId === 'string') {
+                        unregisterWindow(data.windowId);
+                    }
+                    break;
+                case WINDOW_MANAGER_MESSAGE_TYPE_MINIMIZE:
+                    if ('windowId' in data && typeof data.windowId === 'string') {
+                        updateWindow(data.windowId, {isMinimized: true});
+                    }
+                    break;
+                case WINDOW_MANAGER_MESSAGE_TYPE_MAXIMIZE:
+                    if ('windowId' in data && typeof data.windowId === 'string') {
+                        updateWindow(data.windowId, {isMaximized: true});
+                    }
+                    break;
+                case WINDOW_MANAGER_MESSAGE_TYPE_OPEN:
+                    if ('href' in data && typeof data.href === 'string' && isAllowedOpenWindowHref(data.href)) {
+                        const props = resolveProtocolHrefToWindowProps(data.href);
+                        if (props) registerWindow(props);
+                    }
+                    break;
             }
         };
         window.addEventListener('message', handler);
         return () => window.removeEventListener('message', handler);
-    }, [unregisterWindow]);
+    }, [unregisterWindow, updateWindow, registerWindow]);
 
     const refresh = useCallback(() => {
         useAppsStore.getState().refresh();

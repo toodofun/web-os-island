@@ -6,10 +6,10 @@ const TestApp: React.FC = () => {
 
     const handleClose = () => {
         if (windowId) {
-            window.parent.postMessage(
-                {type: 'windowmanager:closeWindow', windowId},
-                '*'  // 生产环境建议改为具体 origin，如 'https://主应用域名'
-            );
+            window.parent.postMessage({
+                type: 'windowmanager:openWindow',
+                href: 'terminal://' + btoa(JSON.stringify({url: 'ws://localhost:8765'}))
+            }, '*')
         }
     };
 
